@@ -3,9 +3,12 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator animator;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     private float xInput;
+
 
     [Header("ground info")]
     [SerializeField] private Transform groundObject;
@@ -17,11 +20,14 @@ public class MoveController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        AnimationController();
+
         CollisionCheck();
 
         xInput = Input.GetAxisRaw("Horizontal");
@@ -34,6 +40,13 @@ public class MoveController : MonoBehaviour
         }
 
     }
+
+    private void AnimationController()
+    {
+        bool isMoving = rb.velocity.x != 0;
+        animator.SetBool("isMoving", isMoving);
+    }
+
     private void CollisionCheck()
     {
         isGrounded = Physics2D.OverlapCircle(groundObject.position, groundCheckRadius, groundLayer);
