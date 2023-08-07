@@ -159,9 +159,9 @@ MonoBehaviour:
   jumpForce: 6
   groundCheckRadius: 0.2
   groundObject: {fileID: 595794334}
-  whatIsGround:
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   isGrounded: 0
 --- !u!50 &97710271
 Rigidbody2D:
@@ -404,7 +404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 595794334}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 1935249963}
   - component: {fileID: 1935249962}
   - component: {fileID: 1935249964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

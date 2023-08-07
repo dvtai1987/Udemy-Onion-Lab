@@ -8,10 +8,10 @@ public class MoveController : MonoBehaviour
     private float xInput;
 
     [Header("ground info")]
-    [SerializeField] private float groundCheckRadius;
     [SerializeField] private Transform groundObject;
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] bool isGrounded = false;
+    [SerializeField] private float groundCheckRadius;
+    [SerializeField] private LayerMask groundLayer;
+    bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +36,12 @@ public class MoveController : MonoBehaviour
     }
     private void CollisionCheck()
     {
-        isGrounded = Physics2D.OverlapCircle(groundObject.position, groundCheckRadius);
+        isGrounded = Physics2D.OverlapCircle(groundObject.position, groundCheckRadius, groundLayer);
     }
 
     private void Jump()
     {
-        if (isGrounded == true)
+        if (isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
