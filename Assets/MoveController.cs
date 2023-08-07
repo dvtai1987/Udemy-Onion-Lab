@@ -8,7 +8,7 @@ public class MoveController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     private float xInput;
-
+    private bool facingRight = true;
 
     [Header("ground info")]
     [SerializeField] private Transform groundObject;
@@ -43,8 +43,9 @@ public class MoveController : MonoBehaviour
 
     private void AnimationController()
     {
-        bool isMoving = rb.velocity.x != 0;
-        animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isGround", isGrounded);
+        animator.SetFloat("yVelocity", rb.velocity.y);
+        animator.SetFloat("xVelocity", rb.velocity.x);
     }
 
     private void CollisionCheck()
@@ -58,6 +59,24 @@ public class MoveController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (rb.velocity.x < 0f && facingRight)
+        {
+            Flip();
+        }
+        else if (rb.velocity.x > 0f && !facingRight)
+        {
+            Flip();
+        }
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(0, 180, 0);
     }
 
     private void Movement()
